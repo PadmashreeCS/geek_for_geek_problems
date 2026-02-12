@@ -29,6 +29,31 @@ int firstEquilibrium(int arr[], int n)
     return -1;
 }// function declaration
 
+
+************************************************************************************************************************   alternative(time optimization)
+int firstEquilibrium(int arr[], int n)
+{
+    int total = 0;
+    for(int i = 0; i < n; i++)
+        total += arr[i];
+
+    int left = 0;
+
+    for(int i = 0; i < n; i++)
+    {
+        int right = total - left - arr[i];
+
+        if(left == right)
+            return i;
+
+        left += arr[i];
+    }
+
+    return -1;
+}
+
+
+
 int main() 
 {
     int arr[] = {1, 2, 6, 4, 0, -1};
