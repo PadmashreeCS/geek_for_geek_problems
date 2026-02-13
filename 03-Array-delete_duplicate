@@ -1,0 +1,106 @@
+#include <stdio.h>
+
+int removeDuplicates(int arr[], int n)
+{
+    for(int i = 0; i < n; i++)
+    {
+        int pos = 0;   // reset for each i
+
+        for(int j = i + 1; j < n; j++)
+        {
+            if(arr[i] == arr[j])
+            {
+                pos++;   // count duplicates
+            }
+            else
+            {
+                break;   // since array is sorted
+            }
+        }
+
+        // shift elements left by 'pos'
+        if(pos > 0)
+        {
+            for(int k = i + 1; k + pos < n; k++)
+            {
+                arr[k] = arr[k + pos];
+            }
+
+            n = n - pos;  // reduce size
+        }
+    }
+
+    return n;
+}
+
+int main()
+{
+    int n;
+
+    scanf("%d", &n);
+
+    int arr[n];
+
+    for(int i = 0; i < n; i++)
+    {
+        scanf("%d", &arr[i]);
+    }
+
+    int newSize = removeDuplicates(arr, n);
+
+    for(int i = 0; i < newSize; i++)
+    {
+        printf("%d ", arr[i]);
+    }
+
+    return 0;
+}
+
+*************************************************************************************************************** (coptimize)
+#include <stdio.h>
+
+int removeDuplicates(int arr[], int n)
+{
+    if(n == 0)
+        return 0;
+
+    int pos = 0;   // position of last unique element
+
+    for(int i = 1; i < n; i++)
+    {
+        if(arr[i] != arr[pos])
+        {
+            pos++;
+            arr[pos] = arr[i];
+        }
+    }
+
+    return pos + 1;   // new size
+}
+
+int main()
+{
+    int n;
+
+    scanf("%d", &n);
+
+    int arr[n];
+
+    for(int i = 0; i < n; i++)
+    {
+        scanf("%d", &arr[i]);
+    }
+
+    int newSize = removeDuplicates(arr, n);
+
+    for(int i = 0; i < newSize; i++)
+    {
+        printf("%d ", arr[i]);
+    }
+
+    return 0;
+}
+
+
+
+
