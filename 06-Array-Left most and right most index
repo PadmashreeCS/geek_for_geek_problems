@@ -1,0 +1,66 @@
+#include <stdio.h>
+
+void indexes(int v[], int n, int x, int result[])   // your function
+{
+    int j = -1;
+    for(int i=0; i<=n-1; i++)
+    {
+        if(v[i] == x && j<0)
+        {
+            result[0]=i; j++;
+        }
+        if(v[i]==x)
+        {
+            result[1]=i;
+        }
+    }
+    if(j==-1)
+    {
+        result[0]=j;
+        result[1]=j;
+    }
+}
+
+int main()
+{
+    int n;
+    printf("Enter n: ");
+    scanf("%d", &n);
+
+    int v[n];
+    printf("Ener n element: ");
+    for(int i = 0; i < n; i++)
+    {
+        scanf("%d", &v[i]);
+    }
+    printf("X is find");
+    int x;
+    scanf("%d", &x);
+
+    int result[2];
+
+    indexes(v, n, x, result);
+
+    printf("%d %d\n", result[0], result[1]);
+
+    return 0;
+}
+
+************************************************************************************************************************************ (small)
+
+void indexes(int v[], int n, int x, int result[])
+{
+    result[0] = -1;
+    result[1] = -1;
+
+    for(int i = 0; i < n; i++)
+    {
+        if(v[i] == x)
+        {
+            if(result[0] == -1)
+                result[0] = i;
+
+            result[1] = i;
+        }
+    }
+}
