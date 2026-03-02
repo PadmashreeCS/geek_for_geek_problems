@@ -1,0 +1,43 @@
+int minJumps(int arr[], int n)
+{
+    int count = 0;
+    int i = 0;
+
+    while (i < n - 1)
+    {
+        if (arr[i] == 0)
+            return -1;
+
+        // FIX 1: use >= instead of ==
+        if (arr[i] + i >= n - 1)
+        {
+            count++;
+            break;
+        }
+        else
+        {
+            // FIX 2: need best index, not just value
+            int maxReach = -1;
+            int bestIndex = -1;
+
+            // FIX 3: correct loop range
+            for (int j = i + 1; j <= i + arr[i] && j < n; j++)
+            {
+                // FIX 4: compare future reach (j + arr[j])
+                if (j + arr[j] > maxReach)
+                {
+                    maxReach = j + arr[j];
+                    bestIndex = j;
+                }
+            }
+
+            if (bestIndex == -1)
+                return -1;
+
+            i = bestIndex;   // FIX 5: jump to index, not value
+            count++;
+        }
+    }
+
+    return count;
+}
