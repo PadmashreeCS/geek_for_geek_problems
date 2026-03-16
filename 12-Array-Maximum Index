@@ -1,0 +1,71 @@
+int maxIndexDiff(int arr[], int n) 
+{
+    int max_index = 0;
+    int result;
+    for(int i=0; i<=n-1; i++)
+    {
+        int index;
+        for(int j=i; j<=n-1; j++)
+        {
+            if(arr[i] <= arr[j])
+            {
+                index = j;
+            }
+        }
+        result = index - i;
+        if(result>max_index)
+        {
+            max_index = result;
+        }
+        
+    }
+    
+    return max_index;
+}
+
+
+------------------------------------------------------------------------------------------- (coptimised)
+#include <stdio.h>
+
+int maxIndexDiff(int arr[], int n)
+{
+    int LMin[n], RMax[n];
+
+    // Construct LMin[]
+    LMin[0] = arr[0];
+    for(int i = 1; i < n; i++)
+    {
+        if(arr[i] < LMin[i-1])
+            LMin[i] = arr[i];
+        else
+            LMin[i] = LMin[i-1];
+    }
+
+    // Construct RMax[]
+    RMax[n-1] = arr[n-1];
+    for(int j = n-2; j >= 0; j--)
+    {
+        if(arr[j] > RMax[j+1])
+            RMax[j] = arr[j];
+        else
+            RMax[j] = RMax[j+1];
+    }
+
+    int i = 0, j = 0, maxDiff = -1;
+
+    while(i < n && j < n)
+    {
+        if(LMin[i] <= RMax[j])
+        {
+            if(j - i > maxDiff)
+                maxDiff = j - i;
+            j++;
+        }
+        else
+        {
+            i++;
+        }
+    }
+
+    return maxDiff;
+}
